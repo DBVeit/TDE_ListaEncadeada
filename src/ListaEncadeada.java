@@ -10,7 +10,7 @@ public class ListaEncadeada {
             System.out.println("Vazia");
             return true;
         }else {
-            System.out.println("Ñvazia");
+            //System.out.println("Ñvazia");
             return false;
         }
     }//verifica se a lista está vazia
@@ -34,7 +34,7 @@ public class ListaEncadeada {
 
     public void insereUltimo (int info){
         Node newNode = new Node(info);
-        if (!vazia()){
+        if (vazia()){             //--->Problema 1: se diferente de vazia (!vazia()) não há inserção - alterado para vazia()
             Lista = newNode;
             return;
         }
@@ -53,12 +53,17 @@ public class ListaEncadeada {
             Lista = newNode;
             return;
         }
+
+        Node anterior = null;
         Node atual = Lista;
-        while (atual.proximo != null && atual.proximo.info < info){
+
+        while (atual != null && atual.info < info){
+            anterior = atual;
             atual = atual.proximo;
         }
-        newNode.proximo = atual.proximo;
-        atual.proximo = newNode;
+
+        anterior.proximo = newNode;
+        newNode.proximo = atual;
     }//insere o elemento info de maneira ordenada na Lista
 
     public Node getNode(int info){
